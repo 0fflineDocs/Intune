@@ -1,7 +1,7 @@
 <#
 
 .DESCRIPTION
-Proactive Remediation that detects if Credential Guard is configured and or running in the endpoint.
+Proactive Remediation detection that checks if Credential Guard is configured and or running in the endpoint.
 Based on: https://docs.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity#securityservicesconfigured
 
 #>
