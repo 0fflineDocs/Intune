@@ -113,6 +113,26 @@ $graphParams = @{
 }
 Invoke-RestMethod @graphParams
 
+#All Cloud PCs
+$filter = @{
+    displayName = "Cloud PCs"
+    description = "Cloud PCs"
+    platform = "windows10AndLater"
+    rule = '(device.model -contains "CloudPC") or (device.model -contains "Cloud PC")'
+} | ConvertTo-Json -Depth 10  
+
+#Post
+$baseGraphUri = 'https://graph.microsoft.com/beta/deviceManagement/assignmentFilters'
+$graphParams = @{
+    Method          = 'Post'
+    Uri             = $baseGraphUri
+    Authentication  = 'OAuth'
+    Token           = $authToken.AccessToken | ConvertTo-SecureString -AsPlainText -Force
+    ContentType     = 'Application/Json'
+    Body            = $filter
+}
+Invoke-RestMethod @graphParams
+
 ############## Personal ##############
 
 #All Personal Windows 10
