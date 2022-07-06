@@ -34,14 +34,21 @@ if($Configured -contains 1){$ConfiguredText = "Credential Guard is configured."}
 if($Running -contains 1){$RunningText = "Credential Guard is running."}
 if($Configured -notcontains 1){$ConfiguredText = "Credential Guard is not configured."}
 if($Running -notcontains 1){$RunningText = "Credential Guard is not running."}
-
+if ($Configured -contains 1 -and $Running -contains 1)
+{
+# Credential Guard is both configured and running!
+Write-Host $ConfiguredText $Runningtext
+exit 0
+}
 if ($LSAEnabled.LSACfgFlags -eq '1' -and $CGEnabled.Enabled -eq '1' -and $CGLocked.Locked -eq '1')
 {
-    Write-Host "Remediation successfully processed. Reboot PC to finalize settings! $ConfiguredText $Runningtext"
+    # Credential Guard registry values are in place. After next PC Reboot, reporting and configuration will be ok!
+    Write-Host $ConfiguredText $Runningtext
     exit 0
 }
 else {
-    Write-Host "$ConfiguredText $Runningtext Remediation needed!"
+    # Remediation needed!
+    Write-Host $ConfiguredText $Runningtext
     exit 1
 }
 }
