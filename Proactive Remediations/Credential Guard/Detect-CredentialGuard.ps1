@@ -43,7 +43,7 @@ else {
 }
 catch [System.Exception]
 {
-    Write-Warning "Failed to check running status of Credential Guard..."
+    Write-Warning "Failed to detect the status of Credential Guard..."
     exit 1
 }
 catch {
