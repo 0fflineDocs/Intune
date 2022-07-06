@@ -16,35 +16,34 @@ $VBSStatus = (Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Micro
 if ($VBSStatus.VirtualizationBasedSecurityStatus -ne '2') 
 {
     Write-Host "Virtualization Based Security is not running. Exiting script..."
-    exit 1
+    exit 0
 }
 
 # Check Credential Guard services status and write-output based on if services are configured, running or not.
 try
 {
-    $CGStatus = (Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard)
-    $Configured = ($CGStatus.SecurityServicesConfigured)
-    $Running = ($CGStatus.SecurityServicesRunning)
-    
-    if($Configured -contains 1){$ConfiguredText = "Credential Guard is configured."}
-    if($Running -contains 1){$RunningText = "Credential Guard is running."}
-    if($Configured -notcontains 1){$ConfiguredText = "Credential Guard is not configured."}
-    if($Running -notcontains 1){$RunningText = "Credential Guard is not running."}
+$LSARegistry= "HKLM:\System\CurrentControlSet\Control\LSA"
+$LSAEnabled = (Get-ItemProperty -Path $LSARegistry -Name "LSACfgFlags" -ErrorAction SilentlyContinue)
+$CGRegistry = "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\CredentialGuard"  
+$CGEnabled = (Get-ItemProperty -Path $CGRegistry -Name "Enabled" -ErrorAction SilentlyContinue)
+$CGLocked = (Get-ItemProperty -Path $CGRegistry -Name "Locked" -ErrorAction SilentlyContinue)
+$CGStatus = (Get-CimInstance -ClassName Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard)
+$Configured = ($CGStatus.SecurityServicesConfigured)
+$Running = ($CGStatus.SecurityServicesRunning)
+if($Configured -contains 1){$ConfiguredText = "Credential Guard is configured."}
+if($Running -contains 1){$RunningText = "Credential Guard is running."}
+if($Configured -notcontains 1){$ConfiguredText = "Credential Guard is not configured."}
+if($Running -notcontains 1){$RunningText = "Credential Guard is not running."}
 
-    if ($Configured -notcontains 1 -and $Running -notcontains 1 -or $Configured -notcontains 1 -or $Running -notcontains 1)
-    {
-    Write-Host $ConfiguredText, $Runningtext
-    exit 1
-}
-else {
-    Write-Host $ConfiguredText, $Runningtext
+if ($LSAEnabled.LSACfgFlags -eq '1' -and $CGEnabled.Enabled -eq '1' -and $CGLocked.Locked -eq '1')
+{
+    Write-Host "Remediation successfully processed. Reboot PC to finalize settings! $ConfiguredText $Runningtext"
     exit 0
 }
-}
-catch [System.Exception]
-{
-    Write-Warning "Failed to detect the status of Credential Guard..."
+else {
+    Write-Host "$ConfiguredText $Runningtext Remediation needed!"
     exit 1
+}
 }
 catch {
 Write-Error $_.Exception
