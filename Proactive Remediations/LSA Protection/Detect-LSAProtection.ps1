@@ -12,7 +12,7 @@ try {
     if ($LSAValue.RunAsPPL -eq '1')
 {
     # Run As PPL Value in place. OK! 
-    Write-Host "$LSAPath\$LSAValue is configured!"
+    Write-Host "$LSAPath\RunAsPPL is configured!"
     exit 0
 }
 else {
