@@ -16,6 +16,7 @@ try
     New-ItemProperty -Path "$DeviceGuardPath\Scenarios\CredentialGuard" -Name "Enabled" -PropertyType "DWORD" -Value 1 -Force
     New-ItemProperty -Path "$DeviceGuardPath\Scenarios\CredentialGuard" -Name "Locked" -PropertyType "DWORD" -Value 1 -Force
     New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\LSA" -Name "LsaCfgFlags" -PropertyType "DWORD" -Value 1 -Force
+    exit 0
 else {
     Write-Host "Failed to remediate the status of Credential Guard..."
     exit 1
