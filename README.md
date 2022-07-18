@@ -1,2 +1,3 @@
-![INTUNE](https://user-images.githubusercontent.com/25408117/178338553-5797418a-d3f7-4ee0-aa87-8287b652c0a3.png)
-
+<p align="center">
+<img src="https://user-images.githubusercontent.com/25408117/179571181-1d3f62de-d554-4cef-ba10-701aa47d1700.png" alt="Intune">
+</p>
