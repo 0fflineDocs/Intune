@@ -1,6 +1,6 @@
 ### Filter Hydration Creates the following filters:
 #### Azure Virtual Desktop
-### Cloud PCs
+#### Cloud PCs
 #### Windows Virtual Machines
 #### Windows Corporate Devices
 #### Windows Personal Devices
