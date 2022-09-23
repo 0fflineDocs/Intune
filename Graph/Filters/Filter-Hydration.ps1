@@ -16,7 +16,7 @@ $authToken = Get-MsalToken @authParams
 #All Windows Virtual Machines
 $filter = @{
     displayName = 'Windows Virtual Machines'
-    description = 'Windows 10 Virtual Machines'
+    description = 'Windows Virtual Machines'
     platform    = 'Windows10AndLater'
     rule        = '(device.deviceOwnership -eq "Corporate") and (device.model -startsWith "Virtual Machine")'
 } | ConvertTo-Json -Depth 10
@@ -35,8 +35,8 @@ Invoke-RestMethod @graphParams
 
 #All Corporate Windows
 $filter = @{
-    displayName = 'Windows 10 Corporate Devices'
-    description = 'Corporate Windows 10 Devices'
+    displayName = 'Windows Corporate Devices'
+    description = 'Corporate Windows Devices'
     platform    = 'Windows10AndLater'
     rule        = '(device.deviceOwnership -eq "Corporate")'
 } | ConvertTo-Json -Depth 10
@@ -137,8 +137,8 @@ Invoke-RestMethod @graphParams
 
 #All Personal Windows 10
 $filter = @{
-    displayName = "Windows 10 Personal Devices"
-    description = "Personal Windows 10 Devices"
+    displayName = "Windows Personal Devices"
+    description = "Personal Windows Devices"
     platform = "windows10AndLater"
     rule = '(device.deviceOwnership -eq "Personal")'
 } | ConvertTo-Json -Depth 10  
