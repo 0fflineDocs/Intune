@@ -1,6 +1,6 @@
 ## **Content**
 
-💻  Microsoft Endpoint Manager 
+💻  Intune
 
 🔁  Proactive Remediations 
 
