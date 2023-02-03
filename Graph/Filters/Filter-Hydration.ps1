@@ -11,7 +11,7 @@ $authParams = @{
 }
 $authToken = Get-MsalToken @authParams
 
-############## Corporate ##############
+############## Corporate Filters ##############
 
 #All Windows Virtual Machines
 $filter = @{
@@ -113,6 +113,46 @@ $graphParams = @{
 }
 Invoke-RestMethod @graphParams
 
+#All Azure Virtual Desktop Multi-Session
+$filter = @{
+    displayName = "Azure Virtual Desktop Multi-Session"
+    description = "Azure Virtual Desktop Multi-Session"
+    platform = "windows10AndLater"
+    rule = '(device.osVersion -eq "Enterprise multi-session")'
+} | ConvertTo-Json -Depth 10  
+
+#Post
+$baseGraphUri = 'https://graph.microsoft.com/beta/deviceManagement/assignmentFilters'
+$graphParams = @{
+    Method          = 'Post'
+    Uri             = $baseGraphUri
+    Authentication  = 'OAuth'
+    Token           = $authToken.AccessToken | ConvertTo-SecureString -AsPlainText -Force
+    ContentType     = 'Application/Json'
+    Body            = $filter
+}
+Invoke-RestMethod @graphParams
+
+#All Azure Virtual Desktop Single-Session
+$filter = @{
+    displayName = "Azure Virtual Desktop Single-Session"
+    description = "Azure Virtual Desktop Single-Session"
+    platform = "windows10AndLater"
+    rule = '(device.deviceName -startsWith "AVD-")'
+} | ConvertTo-Json -Depth 10  
+
+#Post
+$baseGraphUri = 'https://graph.microsoft.com/beta/deviceManagement/assignmentFilters'
+$graphParams = @{
+    Method          = 'Post'
+    Uri             = $baseGraphUri
+    Authentication  = 'OAuth'
+    Token           = $authToken.AccessToken | ConvertTo-SecureString -AsPlainText -Force
+    ContentType     = 'Application/Json'
+    Body            = $filter
+}
+Invoke-RestMethod @graphParams
+
 #All Cloud PCs
 $filter = @{
     displayName = "Cloud PCs"
@@ -133,9 +173,29 @@ $graphParams = @{
 }
 Invoke-RestMethod @graphParams
 
-############## Personal ##############
+#Hololens
+$filter = @{
+    displayName = "Hololens"
+    description = "Hololens"
+    platform = "windows10AndLater"
+    rule = '(device.operatingSystemSKU -eq "Holographic")'
+} | ConvertTo-Json -Depth 10  
 
-#All Personal Windows 10
+#Post
+$baseGraphUri = 'https://graph.microsoft.com/beta/deviceManagement/assignmentFilters'
+$graphParams = @{
+    Method          = 'Post'
+    Uri             = $baseGraphUri
+    Authentication  = 'OAuth'
+    Token           = $authToken.AccessToken | ConvertTo-SecureString -AsPlainText -Force
+    ContentType     = 'Application/Json'
+    Body            = $filter
+}
+Invoke-RestMethod @graphParams
+
+############## Personal Filters ##############
+
+#All Personal Windows Devices
 $filter = @{
     displayName = "Windows Personal Devices"
     description = "Personal Windows Devices"
@@ -175,7 +235,7 @@ $graphParams = @{
 }
 Invoke-RestMethod @graphParams
 
-#Personal Android for Enterprise
+#All Personal Android for Enterprise
 $filter = @{
     displayName = "Android Enterprise Personal Devices"
     description = "Personal Android Enterprise Devices"
