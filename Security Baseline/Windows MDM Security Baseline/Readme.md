@@ -1,4 +1,4 @@
-Endpoint Security & Settings Catalog Edition of the Windows MDM Security Baseline
+### Endpoint Security & Settings Catalog - Windows MDM Security Baseline ###
 
 [Security Baseline Replacement] - Windows - Device Hardening	                 
 [Security Baseline Replacement] - Windows - Device Guard	                     
