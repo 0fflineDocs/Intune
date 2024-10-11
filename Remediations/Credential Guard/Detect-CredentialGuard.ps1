@@ -1,7 +1,7 @@
 <#
 
 .DESCRIPTION
-Proactive Remediation detection that checks the status of Credential Guard in the endpoint.
+Intune Remediation detection that checks the status of Credential Guard in the endpoint.
 Script will exit if Virtualization Based Security is not running.
 Based on: https://docs.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity#securityservicesconfigured
 
