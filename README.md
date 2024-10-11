@@ -1,4 +1,4 @@
-# Intune
+# Intune Tools
 
 ## Device Management
 
