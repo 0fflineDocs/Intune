@@ -17,7 +17,7 @@
 ##### Graph-X Ray https://graphxray.merill.net/
 
 
-## Reporting
+## Reporting 📊
 
 ##### Enhanced Intune Inventory https://github.com/MSEndpointMgr/IntuneEnhancedInventory
 
