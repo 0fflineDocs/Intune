@@ -1,6 +1,6 @@
-# Intune Tools
+# Intune Tools 🛠️
 
-## Device Management
+## Device Management 💻
 
 ##### Intune Management https://github.com/Micke-K/IntuneManagement
 
